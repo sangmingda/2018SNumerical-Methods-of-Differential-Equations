@@ -1,0 +1,126 @@
+
+%导言区
+\documentclass{article}%book，report，letter
+
+\usepackage{ctex}
+\usepackage{fontspec}
+\usepackage{color}
+\usepackage{graphicx}
+%\usepackage{math}
+
+%制作页眉页脚
+\usepackage{fancyhdr}  
+\pagestyle{fancy}  
+\lhead{第三周作业}  
+\chead{微分方程数值解法}  
+\rhead{桑明达 15300180062}  
+\lfoot{}  
+\cfoot{\thepage}  
+\rfoot{}  
+\renewcommand{\headrulewidth}{0.4pt}  
+\renewcommand{\footrulewidth}{0.4pt} 
+
+%标题
+\author{names}
+\title{\heiti 微分方程数值解法\\ [2ex] \begin{large} 第三周作业 \end{large}}
+\author{\kaishu 桑明达 15300180062}
+\date{\today}
+
+% 正文区
+\begin{document}
+\maketitle
+
+%\newpage
+
+\section{P53 1 多种求积公式计算$x^n$}
+
+如表1.1、表1.2所示，红色加粗数字为可以精确计算的积分值。
+
+另外，在压缩包代码文件夹内有复化求积公式和自适应Simpson公式，这些公式积分值随划分区间个数的增加可以逼近精确值，在此就不再展示结果。
+
+\begin{center}
+	\textbf{表 1.1}~~Newton求积公式\\
+	\resizebox{\textwidth}{!}{ %
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|} \toprule
+			
+			\hline
+			&精确值&中点公式&梯形公式&Simpson公式&$3/8$规则&Cotes公式&&&&&\\
+			\hline
+			$x^1$&0.500000&{\color{red}{\textbf{0.500000}}}&{\color{red}{\textbf{0.500000}}}&{\color{red}{\textbf{0.500000}}}&{\color{red}{\textbf{0.500000}}}&{\color{red}{\textbf{0.500000}}}&{\color{red}{\textbf{0.500000}}}&{\color{red}{\textbf{0.500000}}}&{\color{red}{\textbf{0.500000}}}&{\color{red}{\textbf{0.500000}}}&{\color{red}{\textbf{0.500000}}}\\
+			\hline
+			$x^2$&0.333333&0.250000&0.250000&{\color{red}{\textbf{0.333333}}}&{\color{red}{\textbf{0.333333}}}&{\color{red}{\textbf{0.333333}}}&{\color{red}{\textbf{0.333333}}}&{\color{red}{\textbf{0.333333}}}&{\color{red}{\textbf{0.333333}}}&{\color{red}{\textbf{0.333333}}}&{\color{red}{\textbf{0.333333}}}\\
+			\hline
+			$x^3$&0.250000&0.125000&0.125000&{\color{red}{\textbf{0.250000}}}&{\color{red}{\textbf{0.250000}}}&{\color{red}{\textbf{0.250000}}}&{\color{red}{\textbf{0.250000}}}&{\color{red}{\textbf{0.250000}}}&{\color{red}{\textbf{0.250000}}}&{\color{red}{\textbf{0.250000}}}&{\color{red}{\textbf{0.250000}}}\\
+			\hline
+			$x^4$&0.200000&0.062500&0.062500&0.208333&0.203704&{\color{red}{\textbf{0.200000}}}&{\color{red}{\textbf{0.200000}}}&{\color{red}{\textbf{0.200000}}}&{\color{red}{\textbf{0.200000}}}&{\color{red}{\textbf{0.200000}}}&{\color{red}{\textbf{0.200000}}}\\
+			\hline
+			$x^5$&0.166667&0.031250&0.031250&0.187500&0.175926&{\color{red}{\textbf{0.166667}}}&{\color{red}{\textbf{0.166667}}}&{\color{red}{\textbf{0.166667}}}&{\color{red}{\textbf{0.166667}}}&{\color{red}{\textbf{0.166667}}}&{\color{red}{\textbf{0.166667}}}\\
+			\hline
+			$x^6$&0.142857&0.015625&0.015625&0.177083&0.158436&0.143229&0.143067&{\color{red}{\textbf{0.142857}}}&{\color{red}{\textbf{0.142857}}}&{\color{red}{\textbf{0.142857}}}&{\color{red}{\textbf{0.142857}}}\\
+			\hline
+			$x^7$&0.125000&0.007813&0.007813&0.171875&0.147119&0.126302&0.125733&{\color{red}{\textbf{0.125000}}}&{\color{red}{\textbf{0.125000}}}&{\color{red}{\textbf{0.125000}}}&{\color{red}{\textbf{0.125000}}}\\
+			\hline
+			$x^8$&0.111111&0.003906&0.003906&0.169271&0.139689&0.113900&0.112693&0.111137&0.111127&{\color{red}{\textbf{0.111111}}}&{\color{red}{\textbf{0.111111}}}\\
+			\hline
+			$x^9$&0.100000&0.001953&0.001953&0.167969&0.134774&0.104736&0.102720&0.100116&0.100071&{\color{red}{\textbf{0.100000}}}&{\color{red}{\textbf{0.100000}}}\\
+			\hline
+			$x^{10}$&0.090909&0.000977&0.000977&0.167318&0.131509&0.097931&0.095002&0.091214&0.091097&0.090911&0.090910\\
+			\hline
+			\bottomrule
+	\end{tabular}}% 第二个 } 所在行 须有 \end 命令
+\end{center}
+
+\begin{center}
+	\textbf{表 1.2}~~Gauss求积公式\\
+	\resizebox{\textwidth}{!}{ %
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|} \toprule
+						\hline
+						$x^n$&精确值&1点&2点&3点&4点&5点&6点&7点&8点&9点&10点\\
+						\hline
+						$x^{1}$&0.500000&{\color{red}{\textbf{0.500000}}}&{\color{red}{\textbf{0.500000}}}&{\color{red}{\textbf{0.500000}}}&{\color{red}{\textbf{0.500000}}}&{\color{red}{\textbf{0.500000}}}&{\color{red}{\textbf{0.500000}}}&{\color{red}{\textbf{0.500000}}}&{\color{red}{\textbf{0.500000}}}&{\color{red}{\textbf{0.500000}}}&{\color{red}{\textbf{0.500000}}}\\
+						\hline
+						$x^{2}$&0.333333&0.250000&{\color{red}{\textbf{0.333333}}}&{\color{red}{\textbf{0.333333}}}&{\color{red}{\textbf{0.333333}}}&{\color{red}{\textbf{0.333333}}}&{\color{red}{\textbf{0.333333}}}&{\color{red}{\textbf{0.333333}}}&{\color{red}{\textbf{0.333333}}}&{\color{red}{\textbf{0.333333}}}&{\color{red}{\textbf{0.333333}}}\\
+						\hline
+						$x^{3}$&0.250000&0.125000&{\color{red}{\textbf{0.250000}}}&{\color{red}{\textbf{0.250000}}}&{\color{red}{\textbf{0.250000}}}&{\color{red}{\textbf{0.250000}}}&{\color{red}{\textbf{0.250000}}}&{\color{red}{\textbf{0.250000}}}&{\color{red}{\textbf{0.250000}}}&{\color{red}{\textbf{0.250000}}}&{\color{red}{\textbf{0.250000}}}\\
+						\hline
+						$x^{4}$&0.200000&0.062500&0.194444&{\color{red}{\textbf{0.200000}}}&{\color{red}{\textbf{0.200000}}}&{\color{red}{\textbf{0.200000}}}&{\color{red}{\textbf{0.200000}}}&{\color{red}{\textbf{0.200000}}}&{\color{red}{\textbf{0.200000}}}&{\color{red}{\textbf{0.200000}}}&{\color{red}{\textbf{0.200000}}}\\
+						\hline
+						$x^{5}$&0.166667&0.031250&0.152778&{\color{red}{\textbf{0.166667}}}&{\color{red}{\textbf{0.166667}}}&{\color{red}{\textbf{0.166667}}}&{\color{red}{\textbf{0.166667}}}&{\color{red}{\textbf{0.166667}}}&{\color{red}{\textbf{0.166667}}}&{\color{red}{\textbf{0.166667}}}&{\color{red}{\textbf{0.166667}}}\\
+						\hline
+						$x^{6}$&0.142857&0.015625&0.120370&0.142500&{\color{red}{\textbf{0.142857}}}&{\color{red}{\textbf{0.142857}}}&{\color{red}{\textbf{0.142857}}}&{\color{red}{\textbf{0.142857}}}&{\color{red}{\textbf{0.142857}}}&{\color{red}{\textbf{0.142857}}}&{\color{red}{\textbf{0.142857}}}\\
+						\hline
+						$x^{7}$&0.125000&0.007813&0.094907&0.123750&{\color{red}{\textbf{0.125000}}}&{\color{red}{\textbf{0.125000}}}&{\color{red}{\textbf{0.125000}}}&{\color{red}{\textbf{0.125000}}}&{\color{red}{\textbf{0.125000}}}&{\color{red}{\textbf{0.125000}}}&{\color{red}{\textbf{0.125000}}}\\
+						\hline
+						$x^{8}$&0.111111&0.003906&0.074846&0.108458&0.111088&{\color{red}{\textbf{0.111111}}}&{\color{red}{\textbf{0.111111}}}&{\color{red}{\textbf{0.111111}}}&{\color{red}{\textbf{0.111111}}}&{\color{red}{\textbf{0.111111}}}&{\color{red}{\textbf{0.111111}}}\\
+						\hline
+						$x^{9}$&0.100000&0.001953&0.059028&0.095563&0.099898&{\color{red}{\textbf{0.100000}}}&{\color{red}{\textbf{0.100000}}}&{\color{red}{\textbf{0.100000}}}&{\color{red}{\textbf{0.100000}}}&{\color{red}{\textbf{0.100000}}}&{\color{red}{\textbf{0.100000}}}\\
+						\hline
+						$x^{10}$&0.090909&0.000977&0.046553&0.084456&0.090641&0.090908&{\color{red}{\textbf{0.090909}}}&{\color{red}{\textbf{0.090909}}}&{\color{red}{\textbf{0.090909}}}&{\color{red}{\textbf{0.090909}}}&{\color{red}{\textbf{0.090909}}}\\
+						\hline
+						$x^{11}$&0.083333&0.000488&0.036716&0.074770&0.082796&0.083325&{\color{red}{\textbf{0.083333}}}&{\color{red}{\textbf{0.083333}}}&{\color{red}{\textbf{0.083333}}}&{\color{red}{\textbf{0.083333}}}&{\color{red}{\textbf{0.083333}}}\\
+						\hline
+						$x^{12}$&0.076923&0.000244&0.028957&0.066259&0.076009&0.076898&0.076923&{\color{red}{\textbf{0.076923}}}&{\color{red}{\textbf{0.076923}}}&{\color{red}{\textbf{0.076923}}}&{\color{red}{\textbf{0.076923}}}\\
+						\hline
+						$x^{13}$&0.071429&0.000122&0.022837&0.058750&0.070036&0.071371&0.071428&{\color{red}{\textbf{0.071429}}}&{\color{red}{\textbf{0.071429}}}&{\color{red}{\textbf{0.071429}}}&{\color{red}{\textbf{0.071429}}}\\
+						\hline
+						$x^{14}$&0.066667&0.000061&0.018011&0.052107&0.064708&0.066554&0.066665&0.066667&{\color{red}{\textbf{0.066667}}}&{\color{red}{\textbf{0.066667}}}&{\color{red}{\textbf{0.066667}}}\\
+						\hline
+						$x^{15}$&0.062500&0.000031&0.014205&0.046224&0.059903&0.062307&0.062494&0.062500&{\color{red}{\textbf{0.062500}}}&{\color{red}{\textbf{0.062500}}}&{\color{red}{\textbf{0.062500}}}\\
+						\hline
+						$x^{16}$&0.058824&0.000015&0.011203&0.041009&0.055535&0.058521&0.058811&0.058823&0.058824&{\color{red}{\textbf{0.058824}}}&{\color{red}{\textbf{0.058824}}}\\
+						\hline
+						$x^{17}$&0.055556&0.000008&0.008836&0.036385&0.051539&0.055112&0.055532&0.055555&0.055556&{\color{red}{\textbf{0.055556}}}&{\color{red}{\textbf{0.055556}}}\\
+						\hline
+						$x^{18}$&0.052632&0.000004&0.006968&0.032283&0.047866&0.052017&0.052590&0.052630&0.052632&{\color{red}{\textbf{0.052632}}}&{\color{red}{\textbf{0.052632}}}\\
+						\hline
+						$x^{19}$&0.050000&0.000002&0.005496&0.028644&0.044480&0.049185&0.049934&0.049997&0.050000&0.050000&{\color{red}{\textbf{0.050000}}}\\
+						\hline
+						$x^{20}$&0.047619&0.000001&0.004334&0.025415&0.041350&0.046577&0.047519&0.047614&0.047619&0.047619&{\color{red}{\textbf{0.047619}}}\\
+						\hline
+				
+			\bottomrule
+		\end{tabular}}% 第二个 } 所在行 须有 \end 命令
+\end{center}
+
+
+\end{document}

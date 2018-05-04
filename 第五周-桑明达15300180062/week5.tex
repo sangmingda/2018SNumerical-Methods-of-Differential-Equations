@@ -1,0 +1,69 @@
+
+%导言区
+\documentclass{article}%book，report，letter
+
+\usepackage{ctex}
+\usepackage{fontspec}
+%\usepackage{color}
+%\usepackage{graphicx} %use graph format
+%\usepackage{subfigure}
+%\usepackage{epstopdf} %eps图片
+\usepackage{amsmath}  %字体加粗
+%\usepackage{math}
+\usepackage{amsthm}
+%制作页眉页脚
+\usepackage{fancyhdr}  
+\pagestyle{fancy}  
+\lhead{第五周作业}  
+\chead{微分方程数值解法}  
+\rhead{桑明达 15300180062}  
+\lfoot{}  
+\cfoot{\thepage}  
+\rfoot{}  
+\renewcommand{\headrulewidth}{0.4pt}  
+\renewcommand{\footrulewidth}{0.4pt} 
+
+%标题
+\author{names}
+\title{\heiti 微分方程数值解法\\ [2ex] \begin{large} 第五周作业 \end{large}}
+\author{\kaishu 桑明达 15300180062}
+\date{\today}
+
+% 正文区
+\begin{document}
+\maketitle
+
+%\newpage
+
+\section{P84 1 证明引理2.3.5}
+
+\begin{proof}
+	$ \phi \left ( t,u;\Delta t \right ) $满足Lipschitz条件，即
+\begin{align*}
+	\left |\phi \left ( t_{n},u_{n}^{\epsilon };\Delta t \right )-\phi \left ( t_{n}^{},u_{n};\Delta t \right )  \right | & \leq  L \left | u_{n}^{\epsilon }-u_{n} \right |  \\
+	\left | u_{n+1}^{\epsilon }-u_{n+1} \right |& =   \left | u_{n}^{\epsilon }+\Delta t \phi \left ( t_{n},u_{n}^{\epsilon };\Delta t \right )-u_{n} -\Delta t \phi \left ( t_{n},u_{n};\Delta t \right ) \right | \\
+	& \leq \left | \left (u_{n}^{\epsilon }-u_{n}  \right )\left ( 1+\Delta t L \right ) \right | \\
+	& \leq \left ( 1+\Delta t L \right )^{n+1} \left | \left (u_{0}^{\epsilon }-u_{0}  \right ) \right | \\
+	\text{对于$ 0 < t \leq T = N \Delta t $，有} \\
+	\left | u_{n+1}^{\epsilon }-u_{n+1} \right |& \leq e^{LT}\epsilon \\
+	\text{所以单步方法稳定。} \\
+\end{align*}
+\end{proof}
+
+\section{P85 2 证明定理2.3.6}
+
+\begin{proof}
+	$ \epsilon _{n+1}=u(t_{n+1})-u_{n+1} $,代入隐式Euler格式，有
+	\begin{align*}
+	\left |\epsilon _{n+1}  \right | = &  \left| u\left (t_{n+1}  \right ) - u_{n+1} \right| \\
+	= & \left| u\left (t_{n+1}  \right ) - u_n - \Delta t \phi \left ( t_{n},u_{n};\Delta t \right )  \right| \\
+	\leq & \left| u\left (t_{n+1}  \right ) - u \left (t_n   \right )- \Delta t \phi \left ( t_{n},u \left (t_n   \right );\Delta t \right ) \right| + \left| u\left (t_{n}  \right ) - u_n  \right| \\
+	& + \left| \Delta t \phi \left ( t_{n},u\left (t_n   \right );\Delta t \right ) - \Delta t \phi \left ( t_{n},u_{n};\Delta t \right ) \right| \\
+	= & \left | R_{n+1} \right | +\left | \epsilon _{n} \right | + \Delta t L \left | \epsilon _{n} \right | \\
+	\leq & C_{R}\Delta t^{p+1}  + \left (1+\Delta t L  \right ) \left | \epsilon _{n} \right | \\
+	\leq &  C_{R}\Delta t^{p+1} \frac{\left ( 1+\Delta tL \right )^{n+1} - 1}{ \Delta t L}+\left ( 1+\Delta tL \right )^{n+1}\left |\epsilon _{0} \right | \\
+	\leq & C_{R}\Delta t^{p} \frac{e^{L\left (T-t_{0}  \right )} }{  L}+e^{L\left (T-t_{0}  \right )}\left |\epsilon _{0}  \right |	
+	\end{align*}
+\end{proof}
+
+\end{document}
