@@ -1,0 +1,98 @@
+\documentclass{article}%book，report，letter
+
+\usepackage{ctex}
+\usepackage{fontspec}
+%\usepackage{color}
+%\usepackage{graphicx} %use graph format
+%\usepackage{subfigure}
+%\usepackage{epstopdf} %eps图片
+\usepackage{amsmath}  %字体加粗
+%\usepackage{math}
+\usepackage{amsthm}
+\usepackage{amssymb} %因为所以符号
+%\usepackage{caption}
+%\captionsetup[table]{labelsep=space}
+
+%制作页眉页脚
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{第八周作业}
+\chead{微分方程数值解法}
+\rhead{桑明达 15300180062}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+%标题
+\author{names}
+\title{\heiti 微分方程数值解法\\ [2ex] \begin{large} 第八周作业 \end{large}}
+\author{\kaishu 桑明达 15300180062}
+\date{\today}
+
+% 正文区
+\begin{document}
+\maketitle
+
+%\newpage
+
+\section{P136 附加 求Green函数}
+
+\begin{proof}
+
+	当$ G\left ( 0 \right )=0;G'\left ( 1 \right )=0$,有
+
+\begin{align*}
+	G\left ( x;x_0 \right )=\left\{\begin{matrix}
+x &0< x<x_0 \\
+x_0 &x_0<x<1
+\end{matrix}\right.
+\end{align*}
+
+\end{proof}
+
+
+\section{P136 1 求函数u}
+
+\begin{proof}
+
+	解方程，得$$ u=\frac{1}{k^2}+C_1 e^{kix}+C_2 e^{-kix} $$
+
+	代入	$ u\left ( 0 \right )=0;u\left ( 1 \right )=0$，得$$ C_1=\frac{e^{-ki}-1}{k^2\left ( e^{ki}-e^{-ki} \right )},C_2=\frac{1-e^{ki}}{k^2\left ( e^{ki}-e^{-ki} \right )} $$
+
+	此时，$$ Lu=-u_{xx}-k^2u=-1<0 $$
+
+	而 $$ u_{x}=kiC_1\left (e^{kix} -e^{ki\left ( 1-x \right )} \right ) $$
+
+	即存在极值$$ u\left ( 0.5 \right )=\frac{1}{k^2}>0=u\left ( 0 \right )=u\left ( 1 \right ) $$
+
+	不符合极值原理。
+
+\end{proof}
+
+\section{P136 3 验证函数u(x)}
+
+\begin{proof}
+
+	(1)对于初值
+
+\begin{align*}
+	u\left ( 0 \right )&=\int_{0}^{1}G\left ( 0;x_0 \right )f\left ( x_0 \right )\mathrm{d}x_0=0 \\
+	u\left ( 1 \right )&=\int_{0}^{1}G\left ( 1;x_0 \right )f\left ( x_0 \right )\mathrm{d}x_0=0 \\
+\end{align*}
+
+(2)对于 $\forall x\in\left ( 0,1 \right )$,有
+
+\begin{align*}
+		u\left ( x \right )=&\int_{x}^{1}G\left ( x;x_0 \right )f\left ( x_0 \right )\mathrm{d}x_0+\int_{0}^{x}G\left ( x;x_0 \right )f\left ( x_0 \right )\mathrm{d}x_0\\
+	=&\int_{x}^{1}x\left ( 1-x_0 \right )f\left ( x_0 \right )\mathrm{d}x_0+\int_{0}^{x}x_0\left ( 1-x \right )f\left ( x_0 \right )\mathrm{d}x_0\\
+	\therefore u_x=&-\left ( 1-x \right )xf\left ( x \right )+\int_{x}^{1}\left ( 1-x_0 \right )f\left ( x_0 \right )\mathrm{d}x_0 \\
+	&+x\left ( 1-x \right )f\left ( x \right )+\int_{0}^{x}x_0\left ( -1 \right ) f\left ( x_0 \right )\mathrm{d}x_0\\
+	\therefore u_{xx}=&-\left ( 1-x \right )f\left ( x \right )+\left ( -x \right )f\left ( x \right )\\
+	=&-f\left ( x \right )\\
+\end{align*}
+	即证。
+\end{proof}
+
+\end{document}
