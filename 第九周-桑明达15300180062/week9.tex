@@ -12,6 +12,7 @@
 \usepackage{amssymb} %因为所以符号
 %\usepackage{caption}
 %\captionsetup[table]{labelsep=space}
+\usepackage{float}%图片位置
 
 %制作页眉页脚
 \usepackage{fancyhdr}
@@ -51,13 +52,35 @@
 
 	(3)在其他情形下，记特征方程$ -a\lambda ^2+b\lambda+c=0 $的两个根为$ \lambda_1,\lambda_2 $，则$$ u\left ( x \right )=\alpha_1e^{\lambda_1x}+\alpha_2e^{\lambda_2x}+\frac{1}{c} $$
 
-	代入新的边界条件，得到$$ u\left ( x \right )=\frac{e^{\lambda_2}\left ( 1+\lambda_2 \right )-3}{c\left ( e^{\lambda_1}\left ( 1+\lambda_1 \right )-e^{\lambda_2}\left ( 1+\lambda_2 \right ) \right )}e^{\lambda_1x}+\frac{3-e^{\lambda_1}\left ( 1+\lambda_1 \right )}{c\left ( e^{\lambda_1}\left ( 1+\lambda_1 \right )-e^{\lambda_2}\left ( 1+\lambda_2 \right ) \right )}e^{\lambda_2x}+\frac{1}{c} $$
+	代入新的边界条件，得到$$ u\left ( x \right )=\frac{e^{\lambda_2}\left ( 1+\lambda_2 \right )-1}{c\left ( e^{\lambda_1}\left ( 1+\lambda_1 \right )-e^{\lambda_2}\left ( 1+\lambda_2 \right ) \right )}e^{\lambda_1x}+\frac{1-e^{\lambda_1}\left ( 1+\lambda_1 \right )}{c\left ( e^{\lambda_1}\left ( 1+\lambda_1 \right )-e^{\lambda_2}\left ( 1+\lambda_2 \right ) \right )}e^{\lambda_2x}+\frac{1}{c} $$
 
 \end{proof}
 
 \subsection{三点差分格式离散求解}
 
+\begin{proof}
 
+求解结果如图\ref{Fig:1.1}。
+
+\begin{figure}[H]
+	\includegraphics[width=1\linewidth]{week9_1_1.eps}
+	\caption{三点差分格式离散求解}
+	\label{Fig:1.1}
+\end{figure}
+
+差分格式精度分析
+
+\end{proof}
+
+\section{P146 图3.5 标准三点差分格式和四阶HOC格式}
+
+如图\ref{Fig:2.1}。
+
+\begin{figure}[H]
+	\includegraphics[width=1\linewidth]{week9_2_1.eps}
+	\caption{标准三点差分格式和四阶HOC格式}
+	\label{Fig:2.1}
+\end{figure}
 
 
 \end{document}
