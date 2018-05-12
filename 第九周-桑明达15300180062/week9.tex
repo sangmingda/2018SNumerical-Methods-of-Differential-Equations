@@ -16,7 +16,7 @@
 %制作页眉页脚
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\lhead{第八周作业}
+\lhead{第九周作业}
 \chead{微分方程数值解法}
 \rhead{桑明达 15300180062}
 \lfoot{}
@@ -27,7 +27,7 @@
 
 %标题
 \author{names}
-\title{\heiti 微分方程数值解法\\ [2ex] \begin{large} 第八周作业 \end{large}}
+\title{\heiti 微分方程数值解法\\ [2ex] \begin{large} 第九周作业 \end{large}}
 \author{\kaishu 桑明达 15300180062}
 \date{\today}
 
@@ -37,62 +37,27 @@
 
 %\newpage
 
-\section{P136 附加 求Green函数}
+\section{P143 3 三点差分及精度}
 
+\subsection{$u(x)$精确解}
 \begin{proof}
+	(1)当$b=c=0$时，得到$$ u\left ( x \right )=-\frac{1}{a}\left ( x^{2}+c_1x \right ) $$
 
-	当$ G\left ( 0 \right )=0;G'\left ( 1 \right )=0$,有
+	代入新的边界条件$ u\left ( 0 \right )=0,\frac{\mathrm{d}u}{\mathrm{d}x}\left ( 1 \right )+u\left ( 1 \right )=0 $,得到$$ u\left ( x \right )=\frac{x\left ( 3-2x \right )}{2a} $$
 
-\begin{align*}
-	G\left ( x;x_0 \right )=\left\{\begin{matrix}
-x &0< x<x_0 \\
-x_0 &x_0<x<1
-\end{matrix}\right.
-\end{align*}
+	(2)当$b=0,c\neq 0$时，得到$$ u\left ( x \right )=\alpha _1\frac{b}{a}e^{\frac{b}{a}}+\alpha _2+\frac{x}{b} $$
+
+	代入新的边界条件，得到$$ u\left ( x \right )=\frac{-2a\left ( e^{\frac{b}{a}x}-1 \right )}{b\left (\left ( a+b \right )e^{\frac{b}{a}}-a  \right )}+\frac{x}{b} $$
+
+	(3)在其他情形下，记特征方程$ -a\lambda ^2+b\lambda+c=0 $的两个根为$ \lambda_1,\lambda_2 $，则$$ u\left ( x \right )=\alpha_1e^{\lambda_1x}+\alpha_2e^{\lambda_2x}+\frac{1}{c} $$
+
+	代入新的边界条件，得到$$ u\left ( x \right )=\frac{e^{\lambda_2}\left ( 1+\lambda_2 \right )-3}{c\left ( e^{\lambda_1}\left ( 1+\lambda_1 \right )-e^{\lambda_2}\left ( 1+\lambda_2 \right ) \right )}e^{\lambda_1x}+\frac{3-e^{\lambda_1}\left ( 1+\lambda_1 \right )}{c\left ( e^{\lambda_1}\left ( 1+\lambda_1 \right )-e^{\lambda_2}\left ( 1+\lambda_2 \right ) \right )}e^{\lambda_2x}+\frac{1}{c} $$
 
 \end{proof}
 
+\subsection{三点差分格式离散求解}
 
-\section{P136 1 求函数u}
 
-\begin{proof}
 
-	解方程，得$$ u=\frac{1}{k^2}+C_1 e^{kix}+C_2 e^{-kix} $$
-
-	代入	$ u\left ( 0 \right )=0;u\left ( 1 \right )=0$，得$$ C_1=\frac{e^{-ki}-1}{k^2\left ( e^{ki}-e^{-ki} \right )},C_2=\frac{1-e^{ki}}{k^2\left ( e^{ki}-e^{-ki} \right )} $$
-
-	此时，$$ Lu=-u_{xx}-k^2u=-1<0 $$
-
-	而 $$ u_{x}=kiC_1\left (e^{kix} -e^{ki\left ( 1-x \right )} \right ) $$
-
-	即存在极值$$ u\left ( 0.5 \right )=\frac{1}{k^2}>0=u\left ( 0 \right )=u\left ( 1 \right ) $$
-
-	不符合极值原理。
-
-\end{proof}
-
-\section{P136 3 验证函数u(x)}
-
-\begin{proof}
-
-	(1)对于初值
-
-\begin{align*}
-	u\left ( 0 \right )&=\int_{0}^{1}G\left ( 0;x_0 \right )f\left ( x_0 \right )\mathrm{d}x_0=0 \\
-	u\left ( 1 \right )&=\int_{0}^{1}G\left ( 1;x_0 \right )f\left ( x_0 \right )\mathrm{d}x_0=0 \\
-\end{align*}
-
-(2)对于 $\forall x\in\left ( 0,1 \right )$,有
-
-\begin{align*}
-		u\left ( x \right )=&\int_{x}^{1}G\left ( x;x_0 \right )f\left ( x_0 \right )\mathrm{d}x_0+\int_{0}^{x}G\left ( x;x_0 \right )f\left ( x_0 \right )\mathrm{d}x_0\\
-	=&\int_{x}^{1}x\left ( 1-x_0 \right )f\left ( x_0 \right )\mathrm{d}x_0+\int_{0}^{x}x_0\left ( 1-x \right )f\left ( x_0 \right )\mathrm{d}x_0\\
-	\therefore u_x=&-\left ( 1-x \right )xf\left ( x \right )+\int_{x}^{1}\left ( 1-x_0 \right )f\left ( x_0 \right )\mathrm{d}x_0 \\
-	&+x\left ( 1-x \right )f\left ( x \right )+\int_{0}^{x}x_0\left ( -1 \right ) f\left ( x_0 \right )\mathrm{d}x_0\\
-	\therefore u_{xx}=&-\left ( 1-x \right )f\left ( x \right )+\left ( -x \right )f\left ( x \right )\\
-	=&-f\left ( x \right )\\
-\end{align*}
-	即证。
-\end{proof}
 
 \end{document}
