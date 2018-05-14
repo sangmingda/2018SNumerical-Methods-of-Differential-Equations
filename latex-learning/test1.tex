@@ -1,0 +1,48 @@
+\documentclass{article}
+
+
+%调用
+\usepackage{ctex}
+\usepackage{xspace}
+
+
+
+%自定义命令
+\newcommand*{\myName}{桑明达\xspace}
+\newcommand*{\myNumber}{15300180062\xspace}
+\newcommand*{\myHomeworkNumber}{第一周作业\xspace}
+\newcommand*{\myArticleName}{微分方程数值解法\xspace}
+
+\newcommand*{\myseries}[2][n]{$#2_1,#2_2,\dots,#2_#1$}
+
+
+%制作页眉页脚
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{\myHomeworkNumber}
+\chead{\myArticleName}
+\rhead{\myName \myNumber}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+%标题
+\title{\heiti \myArticleName\\ [2ex] \begin{large} \myHomeworkNumber \end{large}}
+\author{\kaishu \myName \myNumber}
+\date{\today}
+
+% 正文区
+\begin{document}
+\maketitle
+
+  hello!
+
+  你好！\LaTeX
+
+  \newpage
+
+  数列可以写作\myseries{x}，\myseries[m]{y}
+
+\end{document}

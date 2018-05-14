@@ -1,0 +1,71 @@
+\documentclass{beamer}
+
+\usepackage[UTF8,noindent]{ctexcap}
+
+\makeatletter
+\def\beamer@linkspace#1{%
+   \begin{pgfpicture}{0pt}{-1.5pt}{#1}{5.5pt}
+     \pgfsetfillopacity{0}
+      \pgftext[x=0pt,y=-1.5pt]{.}
+      \pgftext[x=#1,y=5.5pt]{.}
+    \end{pgfpicture}}
+\makeatother
+
+
+\begin{document}
+
+\section{Android简介}
+ \section{Android系统架构}
+ \section{Android安全}
+ \section{总结}
+
+\begin{frame}{目录}
+ \tableofcontents
+\end{frame}
+
+%第一页幻灯片
+\begin{frame}
+幻灯片1
+\end{frame}
+
+\begin{frame}
+第二页幻灯片2
+\end{frame}
+
+\begin{frame}
+  第三页幻灯片3
+\end{frame}
+
+\begin{frame}
+    \title[Android的介绍]{Android的发展以及安全现状}
+    \subtitle {--From my perspective}
+    \author{Chicho}
+    \date{\today}
+    \titlepage
+\end{frame}
+
+\begin{frame}{标题}{小标题}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{标题}
+    \framesubtitle{小标题}
+    %效果同上
+\end{frame}
+
+\begin{frame}{Android简介}{Android的发展和历史}
+%可在其中填写你需要的内容
+Android并不是Google创造的，而是由Android公司创造的，该公司的创始人是Andy Rubin。该公司后来被Google收购。
+
+在讲Android之前我们先看看其他的操作系统：
+    \begin{itemize}
+\item Symbian
+\item BlackBerry
+\item iPhone
+\item Palm
+\item Windows Mobile
+\end{itemize}
+\end{frame}
+
+\end{document}
