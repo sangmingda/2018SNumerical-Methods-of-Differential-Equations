@@ -4,10 +4,15 @@
 %调用
 \usepackage{ctex}
 \usepackage{xspace}
+\usepackage{SIunits}%单位符号
+\usepackage{xymtex}%化学符号
+\usepackage{pst-optic}%光学符号
 
 
 
 %自定义命令
+\newcommand*{\myTestTimes}{1\xspace}
+%\typein[\myTestTimes]{这是第几次测试？}
 \newcommand*{\myName}{桑明达\xspace}
 \newcommand*{\myNumber}{15300180062\xspace}
 \newcommand*{\myHomeworkNumber}{第一周作业\xspace}
@@ -29,7 +34,7 @@
 \renewcommand{\footrulewidth}{0.4pt}
 
 %标题
-\title{\heiti \myArticleName\\ [2ex] \begin{large} \myHomeworkNumber \end{large}}
+\title{\heiti \myArticleName \\ [2ex] \begin{large} \myHomeworkNumber \end{large}}
 \author{\kaishu \myName \myNumber}
 \date{\today}
 
@@ -37,12 +42,80 @@
 \begin{document}
 \maketitle
 
+\part{第一部}
+
+\chapter{第一章}
+
   hello!
 
   你好！\LaTeX
 
+这是第\myTestTimes 次测试
   \newpage
+  \@newpage
+
+\section{第一节}
+
 
   数列可以写作\myseries{x}，\myseries[m]{y}
+
+  破折号：北京\raise{1.5pt}{------}上海
+
+\section{第一小节}
+
+\paragraph{第一段}
+
+  米\metre，千克\kilogram，秒\second，摄氏度\degreecelsius，分钟\minute，\dots
+
+  \bzdrh[pa]{4D==O;1D==CH$_{3}$SO$_{2}$2--N;3==CH$_{3}$}
+
+  \lens[lensType=PDVG,focus=-2,spotAi=270,spotBi=90]
+
+  \noindent \makebox[0pt][r]{\fbox{注意}}\qquad 这一行最前面有个宽度为0pt的盒子，并且没有首行缩进。
+
+\newpage
+
+\subparagraph{第一小段}
+
+\begin{equation}
+  1=1
+\end{equation}
+
+$$a=b\makebox{~(勾股定理)}$$
+$$a=b\makebox[0pt][l]{~(勾股定理)}$$\\
+
+\parindent=0pt
+\makebox[60mm][s]{均匀分布这一行}\\
+\makebox[60mm][s]{junyunfenbu}\\
+\makebox[60mm][s]{j u n y u n f e n b u}
+
+\begin{quote}
+    名言
+\end{quote}
+
+这里插入一个脚注
+\footnote{自己注释的脚注}
+
+这里有一个交叉引用\label{text:1}，详情参见第\pageref{text:1}页第\ref{text:1}节的介绍。\\
+
+{\centering {\large 加大居中对齐标题}\\[4mm]
+换行时加大4mm\\[1mm]
+加大1mm\\}
+
+\begin{verbatim}
+这里是抄录格式，输出的文档会和我的输入一模一样
+换行位置一样  空格长度一样 1  2   3    4个空格
+NUM
+\
+$
+%
+7&*@#
+
+\end{verbatim}
+
+从1开始的以10为公差的等差数列，列出3项。
+\multido{\n=1+10}{3}{\n,}
+
+
 
 \end{document}
