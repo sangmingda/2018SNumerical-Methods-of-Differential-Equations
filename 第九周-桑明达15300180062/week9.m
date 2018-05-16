@@ -6,6 +6,7 @@ clear all;close all;clc
 B0=[0,0,10,-10];
 C0=[0,10,0,0];
 markers = {'r+-','gd-','b*-','co-','y--o'};
+names={'b=0,c=0','b=0,c=10','b=10,c=0','b=-10,c=0'};
 for i=1:4
 
 
@@ -22,13 +23,13 @@ h=(xN-x0)./n;
 
 A=(-2.*diag(ones(1,n-1),0)+1.*diag(ones(1,n-2),1)+1.*diag(ones(1,n-2),-1));
 A(n-1,n-1)=A(n-1,n-1)+1./(h+1);
-A=-1./(h.^2).*A;
+A=-a./(h.^2).*A;
 
-B=(-1.*diag(ones(1,n-2),1)+1.*diag(ones(1,n-2),-1));
+B=(1.*diag(ones(1,n-2),1)-1.*diag(ones(1,n-2),-1));
 B(n-1,n-1)=B(n-1,n-1)+1./(h+1);
-B=b./(2.*a.*h).*B;
+B=b./(2.*h).*B;
 
-C=c./a.*eye(n-1,n-1);
+C=c.*eye(n-1,n-1);
 
 x=linspace(x0,xN,n+1);
 fx=f(x);
@@ -39,25 +40,48 @@ F(1)=F(1)+u0./(h.^2)+b.*u0./(2.*a.*h);
 u=(A+B+C)\F;
 
 uN=u(end)./(h+1);
-U=[u0,u',uN];
+U(i,:)=[u0,u',uN];%三点差分结果
+figure(1)
 hold on
-plot(x,U,markers{i})
+plot(x,U(i,:),markers{i})
 
+lambda1=(-b-sqrt(b.^2+4.*a.*c))./(-2.*a);
+lambda2=(-b+sqrt(b.^2+4.*a.*c))./(-2.*a);
+alpha1=-(exp(lambda2).*(1+lambda2)-1)./(c.*(exp(lambda2).*(1+lambda2)-exp(lambda1).*(1+lambda1)));
+alpha2=-(1-exp(lambda1).*(1+lambda1))./(c.*(exp(lambda2).*(1+lambda2)-exp(lambda1).*(1+lambda1)));
+if c==0
+        if b==0
+            Ux=@(x) x.*(3-2.*x)./(4.*a);
+        else
+            Ux=@(x) -2.*(exp(b.*x./a)-1)./(b.*((b./a+1).*exp(b./a)-1))+x./b;
+        end
+else
+    Ux=@(x) alpha1.*exp(lambda1.*x)+alpha2.*exp(lambda2.*x)+1./c;
 end
 
+U0(i,:)=Ux(x);
+
+figure(2)
+hold on
+loglog(x,U0(i,:),markers{i})
+
+error(i)=sum(abs(U0(i,:)-U(i,:)))./sum(abs(U0(i,:)));
+fprintf(names{i})
+fprintf('时误差率是%s\n',error(i))
+end
+figure(1)
 title('三点差分格式离散求解');
-names={'b=0,c=0','b=0,c=10','b=10,c=0','b=-10,c=0'};
 legend(names);
-% 
-% lambda1=(b+sqrt(b.^2-4.*a.*c))./(2.*a);
-% lambda2=(b-sqrt(b.^2-4.*a.*c))./(2.*a);
-% 
-% alpha1=(exp(lambda2).*(1+lambda2)-1)./(c.*(exp(lambda1).*(1+lambda1)-exp(lambda2).*(1+lambda2)));
-% 
-% ux=@(x) alpha1.*exp(lambda1.*x)-(alpha1+1./c).*exp(lambda2.*x)+1./c;
-% 
-% Ux=ux(x);
-% plot(x,Ux)
+
+
+figure(2)
+title('精确解');
+%names={'b=0,c=0','b=0,c=10','b=10,c=0','b=-10,c=0'};
+legend(names);
+
+
+
+
 
 %% P146 图3.5 标准三点差分格式和四阶HOC格式
 clear all;close all;clc

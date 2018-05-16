@@ -42,11 +42,11 @@
 
 \subsection{$u(x)$精确解}
 \begin{proof}
-	(1)当$b=c=0$时，得到$$ u\left ( x \right )=-\frac{1}{a}\left ( x^{2}+c_1x \right ) $$
+	(1)当$b=c=0$时，得到$$ u\left ( x \right )=-\frac{1}{2a}\left ( x^{2}+c_1x \right ) $$
 
-	代入新的边界条件$ u\left ( 0 \right )=0,\frac{\mathrm{d}u}{\mathrm{d}x}\left ( 1 \right )+u\left ( 1 \right )=0 $,得到$$ u\left ( x \right )=\frac{x\left ( 3-2x \right )}{2a} $$
+	代入新的边界条件$ u\left ( 0 \right )=0,\frac{\mathrm{d}u}{\mathrm{d}x}\left ( 1 \right )+u\left ( 1 \right )=0 $,得到$$ u\left ( x \right )=\frac{x\left ( 3-2x \right )}{4a} $$
 
-	(2)当$b=0,c\neq 0$时，得到$$ u\left ( x \right )=\alpha _1\frac{b}{a}e^{\frac{b}{a}}+\alpha _2+\frac{x}{b} $$
+	(2)当$b\neq 0,c=0$时，得到$$ u\left ( x \right )=\alpha _1\frac{b}{a}e^{\frac{b}{a}}+\alpha _2+\frac{x}{b} $$
 
 	代入新的边界条件，得到$$ u\left ( x \right )=\frac{-2a\left ( e^{\frac{b}{a}x}-1 \right )}{b\left (\left ( a+b \right )e^{\frac{b}{a}}-a  \right )}+\frac{x}{b} $$
 
@@ -68,9 +68,25 @@
 	\label{Fig:1.1}
 \end{figure}
 
-差分格式精度分析
+差分格式精度分析，精确解如图\ref{Fig:1.2}。
+
+\begin{figure}[H]
+	\includegraphics[width=1\linewidth]{week9_1_2.eps}
+	\caption{精确解}
+	\label{Fig:1.2}
+\end{figure}
+
+其中，
+
+\noindent b=0,c=0时误差率是6.024096e-03\\
+	b=0,c=10时误差率是1.755775e-03\\
+	b=10,c=0时误差率是1.745959e-03\\
+	b=-10,c=0时误差率是1.211599e-04\\
+
 
 \end{proof}
+
+\newpage
 
 \section{P146 图3.5 标准三点差分格式和四阶HOC格式}
 
