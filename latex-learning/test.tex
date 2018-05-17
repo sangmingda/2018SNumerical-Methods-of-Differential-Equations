@@ -115,6 +115,51 @@ $
 
 从1开始的以10为公差的等差数列，列出3项。
 \multido{\n=1+10}{3}{\n,}
+\newpage
+\section{一些表格}
+
+\begin{tabular}{|l|c|r|}
+\hline
+\multicolumn{3}{|c|}{表格示例}\\
+\hline
+col head &col head & col head\\
+\hline
+Leftv & col head & right\\
+\cline{1-2}
+aligned & items & aligned\\
+\cline{2-3}
+items&items&items\\\cline{1-2}
+
+Left items& centered & right\\
+\hline
+
+\end{tabular}
+
+
+
+\par
+\begin{tabular}{c r @{.} l}
+  \hline
+  太阳系中的行星&\multicolumn{2}{c}{赤道半径km}\\
+  \hline
+  水星&2&44\\
+  金星&6&1\\
+  地球&6\:378&142\\
+  \hline
+\end{tabular}
+
+
+
+
+\par
+\begin{equation}
+  \boxed{\int^{b}_{a}f(x)\,dx=-\int_{b}^{a}f(x)\,dx}
+\end{equation}
+
+
+
+
+
 
 
 
