@@ -1,0 +1,155 @@
+\documentclass{article}%book，report，letter
+
+\usepackage{ctex}
+\usepackage{fontspec}
+%\usepackage{color}
+%\usepackage{graphicx} %use graph format
+%\usepackage{subfigure}
+%\usepackage{epstopdf} %eps图片
+\usepackage{amsmath}  %字体加粗
+%\usepackage{math}
+\usepackage{amsthm}
+\usepackage{amssymb} %因为所以符号
+%\usepackage{caption}
+%\captionsetup[table]{labelsep=space}
+\usepackage{float}%图片位置
+
+%自定义命令
+\newcommand*{\myTestTimes}{1\xspace}
+%\typein[\myTestTimes]{这是第几次测试？}
+\newcommand*{\myName}{桑明达\xspace}
+\newcommand*{\myNumber}{15300180062\xspace}
+\newcommand*{\myHomeworkNumber}{第十周作业\xspace}
+\newcommand*{\myArticleName}{微分方程数值解法\xspace}
+
+\newcommand*{\myseries}[2][n]{\ensuremath{#2_1,#2_2,\dots,#2_#1}}
+
+
+%制作页眉页脚
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{\myHomeworkNumber}
+\chead{\myArticleName}
+\rhead{\myName \myNumber}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+%标题
+\title{\heiti \myArticleName \\ [2ex] \begin{large} \myHomeworkNumber \end{large}}
+\author{\kaishu \myName \myNumber}
+\date{\today}
+
+% 正文区
+\begin{document}
+\maketitle
+
+%\newpage
+
+\section{P147 Poincar\'{e}不等式离散形式（式3.1.54）}
+
+\begin{proof}
+\begin{align*}
+	\mathbf{e}=&\left ( e_1,e_2,\dots ,e_N \right )\\
+	\delta ^+_x \mathbf{e}=&\left ( \frac{e_2-e_1}{h},\frac{e_3-e_2}{h},\dots ,\frac{e_N-e_{N-1}}{h} \right )
+\end{align*}
+
+\begin{align*}
+\therefore \sum_{i=1}^{N}e^2_i = & \sum_{i=1}^{N}\left (\sum_{k=0}^{i-1}\left (e_{k+1}-e_k  \right )  \right )^2 \\
+\leq & \sum_{i=1}^{N}\left (\sum_{k=0}^{i-1}\left (e_{k+1}-e_k  \right )^2  \right ) \left (\sum_{k=0}^{i-1} 1^2  \right )  \\
+\leq & N \sum_{i=1}^{N}\left (\sum_{k=0}^{i-1}\left (e_{k+1}-e_k  \right )^2  \right ) \\
+\leq & N \sum_{i=1}^{N}\left (\sum_{k=0}^{N-1}\left (e_{k+1}-e_k  \right )^2  \right ) \\
+= &  N^2 \sum_{k=0}^{N-1}\left (e_{k+1}-e_k  \right )^2   \\
+= &   \sum_{k=0}^{N-1} \left ( \frac{e_{k+1}-e_k}{h} \right )^2  \\
+\therefore \left \| \mathbf{e}  \right \|_{\mathit{l}^2} \leq & \left \| \delta ^+_x \mathbf{e}  \right \|_{\mathit{l}^2}
+\end{align*}
+\end{proof}
+
+\section{P151 3 三点差分格式极值原理和最大模误差估计}
+\begin{proof}
+	(1)由三点差分格式有，
+	$$-f_i=\frac{d}{dx}\left ( a(x)\frac{du}{dx} \right ) \bigg |_{x=x_i} \approx \frac{1}{h}\left ( a(x_{i+\frac{1}{2}})\frac{u_{i+1}-u_i}{h}-a(x_{i-\frac{1}{2}})\frac{u_{i}-u_{i-1}}{h} \right )$$
+
+上式可以化为
+$$ a(x_{i+\frac{1}{2}})\left (u_{i+1}-u_i  \right ) =-h^2f_i+a(x_{i-\frac{1}{2}})\left (u_{i}-u_{i-1}  \right )$$
+
+当$f_i \geq 0$时，如果$u_i$取得最小值，因为$a(x) \geq \alpha > 0$，所以上式左边大于等于0，右边小于等于0。得到i=0或n，或者得到$u_i$恒为常数，即u(x)最小值只能在边界达到。
+
+当$f_i \leq 0$时，如果$u_i$取得最大值，因为$a(x) \geq \alpha > 0$，所以上式左边小于等于0，右边大于等于0。得到i=0或n，或者得到$u_i$恒为常数，即u(x)最大值只能在边界达到。
+
+极值原理得证。
+
+(2)记\begin{align*}
+\mathbf{u}=& \left ( \myseries[N-1]{u} \right )^T\\
+\mathbf{e}=& \left ( \myseries[N-1]{e} \right )^T\\
+\mathbf{f}=& \left ( \myseries[N-1]{f} \right )^T\\
+\mathbf{R}=& \left ( \myseries[N-1]{R} \right )^T\\
+\end{align*}
+$\mathbf{A}$=\begin{pmatrix}
+ a_{\frac{3}{2}}+a_{\frac{1}{2}}&-a_{\frac{3}{2}}  &  &  & \\
+ -a_{\frac{3}{2}}& a_{\frac{5}{2}}+a_{\frac{3}{2}} & -a_{\frac{5}{2}} &  & \\
+ & -a_{\frac{5}{2}} & a_{\frac{7}{2}}+a_{\frac{5}{2}} & \ddots & \\
+ &  & \ddots & \ddots & -a_{N-2+\frac{1}{2}} \\
+ &  &  & -a_{N-1-\frac{1}{2}} & a_{N-1-\frac{1}{2}}+a_{N-1+\frac{1}{2}}
+\end{pmatrix}
+
+那么有
+\begin{align*}
+	\mathbf{Au}=& h^2 \mathbf{f}\\
+	\mathbf{Ae}=& h^2 \mathbf{R}\\
+\end{align*}
+因为$a(x) \geq \alpha > 0$，所以$ \mathbf{A}$是正定阵，所以
+\begin{align*}
+	\mathbf{e}=& h^2 \mathbf{{A}^{-1}R}\\
+	\left \| \mathbf{e}  \right \|_{\mathit{l}^{\infty }} =& h^2 \left \| \mathbf{{A}^{-1}R} \right \|_{\mathit{l}^{\infty }} \\
+  \leq & h^2 \left \| \mathbf{{A}^{-1}} \right \| \left \| \mathbf{R} \right \| _{\mathit{l}^{\infty }}
+\end{align*}
+\end{proof}
+\section{P164 1 五点差分格式问题}
+\begin{proof}
+(1)$\mathbf{A}$=\begin{pmatrix}
+\mathbf{S} & \mathbf{T} &  & \\
+\mathbf{T} & \ddots & \ddots & \\
+ & \ddots & \ddots & \mathbf{T}\\
+ &  & \mathbf{T} & \mathbf{S}
+\end{pmatrix}
+
+其中，
+\begin{align*}
+	\mathbf{T}=& -\frac{1}{h^2} \mathbf{I}\\
+	\mathbf{S}=& \frac{1}{h^2} \begin{pmatrix}
+	4 & -1 &  & \\
+	-1 & \ddots & \ddots & \\
+	 & \ddots & \ddots & -1\\
+	 &  & -1 & 4
+	\end{pmatrix}\\
+\end{align*}
+所以，$\mathbf{A}+\mathbf{I}$=\begin{pmatrix}
+\mathbf{S}+\mathbf{I} & \mathbf{T} &  & \\
+\mathbf{T} & \ddots & \ddots & \\
+ & \ddots & \ddots & \mathbf{T}\\
+ &  & \mathbf{T} & \mathbf{S}+\mathbf{I}
+\end{pmatrix}
+
+其中，
+\begin{align*}
+	\mathbf{S}+\mathbf{I}=& \begin{pmatrix}
+	\frac{4}{h^2}+1 & -\frac{1}{h^2} &  & \\
+	-\frac{1}{h} & \ddots & \ddots & \\
+	 & \ddots & \ddots & -\frac{1}{h}\\
+	 &  & -\frac{1}{h^2} & \frac{4}{h^2}+1
+	\end{pmatrix}
+\end{align*}
+
+容易得到$\mathbf{A}+\mathbf{I}$也是成块TST矩阵。
+
+(2)记iii
+
+(3)
+
+
+
+\end{proof}
+\end{document}
