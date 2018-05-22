@@ -22,7 +22,7 @@
 \newcommand*{\myHomeworkNumber}{第十周作业\xspace}
 \newcommand*{\myArticleName}{微分方程数值解法\xspace}
 
-\newcommand*{\myseries}[2][n]{\ensuremath{#2_1,#2_2,\dots,#2_#1}}
+\newcommand*{\myseries}[2][n]{\ensuremath{#2_1,#2_2,\dots,#2_{#1}}}
 
 
 %制作页眉页脚
@@ -63,7 +63,7 @@
 \leq & N \sum_{i=1}^{N}\left (\sum_{k=0}^{N-1}\left (e_{k+1}-e_k  \right )^2  \right ) \\
 = &  N^2 \sum_{k=0}^{N-1}\left (e_{k+1}-e_k  \right )^2   \\
 = &   \sum_{k=0}^{N-1} \left ( \frac{e_{k+1}-e_k}{h} \right )^2  \\
-\therefore \left \| \mathbf{e}  \right \|_{\mathit{l}^2} \leq & \left \| \delta ^+_x \mathbf{e}  \right \|_{\mathit{l}^2}
+\therefore \left \| \mathbf{e}  \right \|_{\ell^2} \leq & \left \| \delta ^+_x \mathbf{e}  \right \|_{\ell^2}
 \end{align*}
 \end{proof}
 
@@ -103,8 +103,8 @@ $\mathbf{A}$=\begin{pmatrix}
 因为$a(x) \geq \alpha > 0$，所以$ \mathbf{A}$是正定阵，所以
 \begin{align*}
 	\mathbf{e}=& h^2 \mathbf{{A}^{-1}R}\\
-	\left \| \mathbf{e}  \right \|_{\mathit{l}^{\infty }} =& h^2 \left \| \mathbf{{A}^{-1}R} \right \|_{\mathit{l}^{\infty }} \\
-  \leq & h^2 \left \| \mathbf{{A}^{-1}} \right \| \left \| \mathbf{R} \right \| _{\mathit{l}^{\infty }}
+	\left \| \mathbf{e}  \right \|_{\ell^{\infty }} =& h^2 \left \| \mathbf{{A}^{-1}R} \right \|_{\ell^{\infty }} \\
+  \leq & h^2 \left \| \mathbf{{A}^{-1}} \right \| \left \| \mathbf{R} \right \| _{\ell^{\infty }}
 \end{align*}
 \end{proof}
 \section{P164 1 五点差分格式问题}
@@ -124,7 +124,7 @@ $\mathbf{A}$=\begin{pmatrix}
 	-1 & \ddots & \ddots & \\
 	 & \ddots & \ddots & -1\\
 	 &  & -1 & 4
-	\end{pmatrix}\\
+	\end{pmatrix}
 \end{align*}
 所以，$\mathbf{A}+\mathbf{I}$=\begin{pmatrix}
 \mathbf{S}+\mathbf{I} & \mathbf{T} &  & \\
@@ -137,19 +137,32 @@ $\mathbf{A}$=\begin{pmatrix}
 \begin{align*}
 	\mathbf{S}+\mathbf{I}=& \begin{pmatrix}
 	\frac{4}{h^2}+1 & -\frac{1}{h^2} &  & \\
-	-\frac{1}{h} & \ddots & \ddots & \\
-	 & \ddots & \ddots & -\frac{1}{h}\\
+	-\frac{1}{h^2} & \ddots & \ddots & \\
+	 & \ddots & \ddots & -\frac{1}{h^2}\\
 	 &  & -\frac{1}{h^2} & \frac{4}{h^2}+1
 	\end{pmatrix}
 \end{align*}
-
 容易得到$\mathbf{A}+\mathbf{I}$也是成块TST矩阵。
 
-(2)记iii
+(2)记
+\begin{align*}
+	\mathbf{u}=&\left ( u_{11},\dots,u_{n1},u_{12},\dots,u_{nn} \right )^T  \\
+	\mathbf{A_0}=&\begin{pmatrix}
+2 & 1 & 1 & \dots & 1 & 1 & 2\\
+1 &  &  &  &  &  & 1\\
+1 &  &  &  &  &  & 1\\
+ \vdots &  &  &  &  &  &  \vdots \\
+1 &  &  &  &  &  & 1\\
+1 &  &  &  &  &  & 1\\
+2 & 1 & 1 & \dots & 1 & 1 & 2
+\end{pmatrix}=\left ( a^{(0)}_{ij} \right )_{n\times n}\\
+\mathbf{a_0}=&\left ( a^{(0)}_{11},\dots,a^{(0)}_{n1},a^{(0)}_{12},\dots,a^{(0)}_{nn} \right )^T
+\end{align*}
+所以有$$ \left (\mathbf{A}+\mathbf{I}  \right )\mathbf{u}=\mathbf{f}+\mathbf{a_0} $$
+类比书上定理3.2.6（P161），在网格点$x_{\ell}$上，误差函数满足$$-\Delta _he_{h,\ell}+e_{h,\ell}=\Delta _hu(x_{\ell})-\Delta u(x_{\ell})+a^{(0)}_{h,\ell} \equiv R_{h,\ell}+a^{(0)}_{h,\ell}$$
+由于$ a^{(0)}_{h,\ell} $在边界上不为0，结合稳定性估计，得到格式不是二阶收敛。
 
-(3)
-
-
-
+(3)由书上定理3.2.8（P161），得到特征值是$$ \lambda _{j,k}=\frac{4}{h^2}\sin^2(\frac{j\pi}{2n})+\frac{4}{h^2}\sin^2(\frac{k\pi}{2n}) $$
+对应的特征向量是$$ \mathbf{u}^{(j,k)}_{m,l}=\frac{2}{n}\sin \left (\frac{mj\pi}{n} \right )\sin \left (\frac{\ell k\pi}{n}\right ),1 \leq m,\ell \leq n-1 $$
 \end{proof}
 \end{document}
