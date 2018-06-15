@@ -1,0 +1,65 @@
+\documentclass{article}%book，report，letter
+
+\usepackage{ctex}
+\usepackage{fontspec}
+%\usepackage{color}
+%\usepackage{graphicx} %use graph format
+%\usepackage{subfigure}
+%\usepackage{epstopdf} %eps图片
+\usepackage{amsmath}  %字体加粗
+%\usepackage{math}
+\usepackage{amsthm}
+\usepackage{amssymb} %因为所以符号
+%\usepackage{caption}
+%\captionsetup[table]{labelsep=space}
+\usepackage{float}%图片位置
+
+%自定义命令
+\newcommand*{\myTestTimes}{1\xspace}
+%\typein[\myTestTimes]{这是第几次测试？}
+\newcommand*{\myName}{桑明达\xspace}
+\newcommand*{\myNumber}{15300180062\xspace}
+\newcommand*{\myHomeworkNumber}{第十三周作业\xspace}
+\newcommand*{\myArticleName}{微分方程数值解法\xspace}
+
+\newcommand*{\myseries}[2][n]{\ensuremath{#2_1,#2_2,\dots,#2_{#1}}}
+
+
+%制作页眉页脚
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{\myHomeworkNumber}
+\chead{\myArticleName}
+\rhead{\myName \myNumber}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+%标题
+\title{\heiti \myArticleName \\ [2ex] \begin{large} \myHomeworkNumber \end{large}}
+\author{\kaishu \myName \myNumber}
+\date{\today}
+
+% 正文区
+\begin{document}
+\maketitle
+%\newpage
+\section{P207 DuFort-Frankel格式截断误差}
+\begin{proof}
+	\begin{align*}
+		R^n_i=&\frac{u^{n+1}_i-u^{n+1}}{2\tau}-a\frac{u^{n}_{i+1}-(u^{n+1}_i+u^{n-1}_i)+u^{n}_{i-1}}{h^2}-(u_t \big|^n_i-au_{xx} \big|^n_i) \\
+		\text{分别定义}&R_t \big|^n_i,R_x\big|^n_i \\
+		R_t \big|^n_i=&\frac{u^{n+1}_i-u^{n+1}}{2\tau}-u_t \big|^n_i \\
+		=&\frac{\tau^2}{6}u_{tt}\big|^n_i+O(\tau^3) \\
+		=&O(\tau^2) \\
+		R_x\big|^n_i=&-a\frac{u^{n}_{i+1}-(u^{n+1}_i+u^{n-1}_i)+u^{n}_{i-1}}{h^2}+au_{xx} \big|^n_i \\
+		=&-\frac{a}{h^2}\left ((u^{n}_{i+1}+u^{n}_{i-1})-(u^{n+1}_i+u^{n-1}_i)  \right )+au_{xx} \big|^n_i \\
+		=&-\frac{a}{h^2}\left ((2u^{n}_{i}+h^2u_{xx}\big|^n_i+O(h^4))-(2u^{n}_{i}+\tau^2u_{tt}\big|^n_i+O(\tau^4))  \right )+au_{xx} \big|^n_i \\
+		=&-\frac{a}{h^2}\left (O(h^4)-\tau^2u_{tt}\big|^n_i-O(\tau^4)  \right ) \\
+		=&O(h^2)+O(\tau^2h^{-2}) \\
+		\text{所以，}R^n_i=&O(\tau^2+h^2)+O(\tau^2h^{-2}) \\
+	\end{align*}
+\end{proof}
+\end{document}
